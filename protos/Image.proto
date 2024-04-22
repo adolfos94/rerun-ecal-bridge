@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package rerun;
+
+message Image
+{
+    // Timestamp
+    google.protobuf.Timestamp timestamp = 1;
+
+    // Image width
+    uint32 width = 2;
+
+    // Image height
+    uint32 height = 3;
+
+    // Image channels
+    uint32 channels = 4;
+
+    // Image data
+    bytes data = 5;
+}

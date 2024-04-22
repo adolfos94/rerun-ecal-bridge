@@ -1,8 +1,12 @@
-#include <cstdio>
+#include <ecal/ecal.h>
 
-#include <rerun.hpp>
+#include "ReRunLogger.hpp"
 
-int main(int argc, const char* argv[]) {
-    printf("Hello, World!\n");
-    return 0;
+int main() {
+    eCAL::Initialize(0, nullptr, NODE_NAME, eCAL::Init::Monitoring);
+
+    ReRunLogger node;
+    node.Execute();
+
+    return eCAL::Finalize();
 }
