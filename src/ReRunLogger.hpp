@@ -1,9 +1,14 @@
 #pragma once
 
-#include <thread>
-
-#include <ecal/ecal.h>
+// ReRun
 #include <rerun.hpp>
+
+// eCAL
+#include <ecal/ecal.h>
+#include <ecal/msg/protobuf/subscriber.h>
+
+// Protobuf
+#include <Image.pb.h>
 
 constexpr char NODE_NAME[] = "ReRun eCAL Bridge";
 
@@ -22,6 +27,9 @@ class ReRunLogger {
 
     // eCAL Topics
     std::map<std::string, eCAL::Monitoring::STopicMon> m_topics_info;
+
+    // eCAL Subscribers
+    std::map<std::string, eCAL::CSubscriber> m_subscribers;
 
     void get_topics(std::map<std::string, eCAL::Monitoring::STopicMon>& topics);
 

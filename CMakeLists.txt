@@ -37,3 +37,5 @@ target_link_libraries(${PROJECT_NAME}
     eCAL::core
     eCAL::core_pb
 )
+
+PROTOBUF_TARGET_CPP(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/protos/ ${protobuf_files})
