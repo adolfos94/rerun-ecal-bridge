@@ -3,10 +3,10 @@
 #include "ReRunLogger.hpp"
 
 int main() {
-    eCAL::Initialize(0, nullptr, NODE_NAME, eCAL::Init::Monitoring);
+    eCAL::Initialize(0, nullptr, NODE_NAME, eCAL::Init::All);
 
     ReRunLogger node;
-    node.Execute();
+    node.execute();
 
     return eCAL::Finalize();
 }
