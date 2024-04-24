@@ -4,17 +4,11 @@ using namespace std::chrono_literals;
 
 ReRunLogger::ReRunLogger() {
     m_rec.spawn().exit_on_failure();
-
-    eCAL::Monitoring::GetMonitoring(m_monitoring);
 }
 
 void ReRunLogger::execute() {
     while (eCAL::Ok()) {
-        // Check for new topics every 0.1s
-
         update_topics();
-
-        std::this_thread::sleep_for(0.1s);
     }
 }
 
@@ -26,6 +20,10 @@ void ReRunLogger::get_topics(std::map<std::string, eCAL::Monitoring::STopicMon>&
     }
 }
 
+bool ReRunLogger::valid_topic(const eCAL::SDataTypeInformation& tdatatype) {
+    return true;
+}
+
 void ReRunLogger::update_topics() {
     // Get current eCAL topics from monitoring
     std::map<std::string, eCAL::Monitoring::STopicMon> topics_info;
@@ -33,8 +31,8 @@ void ReRunLogger::update_topics() {
 
     // Update eCAL topics
     for (const auto& [topic_name, topic] : topics_info) {
-        // Topic exist
-        if (m_topics_info.find(topic_name) != m_topics_info.end()) {
+        // Topic exist or isn't a valid topic
+        if (m_topics_info.find(topic_name) != m_topics_info.end() || valid_topic(topic.tdatatype)) {
             continue;
         }
 

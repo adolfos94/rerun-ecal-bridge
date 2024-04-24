@@ -9,7 +9,7 @@ if(NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 20)
 endif()
 
-# Rerun:
+# Rerun
 include(FetchContent)
 FetchContent_Declare(rerun_sdk URL https://github.com/rerun-io/rerun/releases/download/0.15.1/rerun_cpp_sdk.zip)
 FetchContent_MakeAvailable(rerun_sdk)
@@ -18,24 +18,8 @@ FetchContent_MakeAvailable(rerun_sdk)
 find_package(eCAL REQUIRED)
 find_package(Protobuf REQUIRED)
 
-set(protobuf_files
-    ${CMAKE_CURRENT_SOURCE_DIR}/protos/Image.proto
-)
+# Compile protobuf
+add_subdirectory(protos)
 
-add_executable(${PROJECT_NAME}
-    src/main.cpp
-    src/ReRunLogger.cpp
-)
-
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-    src
-)
-
-target_link_libraries(${PROJECT_NAME}
-    rerun_sdk
-    eCAL::core
-    eCAL::core_pb
-)
-
-PROTOBUF_TARGET_CPP(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/protos/ ${protobuf_files})
+add_subdirectory(src)
+add_subdirectory(samples)

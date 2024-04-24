@@ -33,5 +33,7 @@ class ReRunLogger {
 
     void get_topics(std::map<std::string, eCAL::Monitoring::STopicMon>& topics);
 
+    bool valid_topic(const eCAL::SDataTypeInformation& tdatatype);
+
     void update_topics();
 };
