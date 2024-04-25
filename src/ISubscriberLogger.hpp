@@ -5,8 +5,14 @@
 
 class ISubscriberLogger {
   public:
+    virtual ~ISubscriberLogger() = 0 {};
+
+    void setup() {}
+
     virtual void log() = 0;
 
-  protected:
+    std::string m_entity_path;
     eCAL::CSubscriber m_subscriber;
+
+  protected:
 };

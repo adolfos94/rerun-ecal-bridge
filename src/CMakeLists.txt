@@ -1,7 +1,10 @@
 add_executable(${PROJECT_NAME}
-    main.cpp
-    ReRunLogger.cpp
- "ISubscriberLogger.hpp")
+  "main.cpp"
+  "ReRunLogger.cpp"
+
+  "ISubscriberLogger.hpp"
+  "loggers/ImageLogger.hpp"
+)
 
 target_include_directories(${PROJECT_NAME}
   PRIVATE

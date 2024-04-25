@@ -10,6 +10,8 @@
 // Protobuf
 #include <Image.pb.h>
 
+#include "loggers/ImageLogger.hpp"
+
 constexpr char NODE_NAME[] = "ReRun eCAL Bridge";
 
 class ReRunLogger {
@@ -29,11 +31,11 @@ class ReRunLogger {
     std::map<std::string, eCAL::Monitoring::STopicMon> m_topics_info;
 
     // eCAL Subscribers
-    std::map<std::string, eCAL::CSubscriber> m_subscribers;
+    std::map<std::string, std::unique_ptr<ISubscriberLogger>> m_subscribers;
 
     void get_topics(std::map<std::string, eCAL::Monitoring::STopicMon>& topics);
 
-    bool valid_topic(const eCAL::SDataTypeInformation& tdatatype);
-
     void update_topics();
+
+    void create_logger(const eCAL::Monitoring::STopicMon& topic);
 };
