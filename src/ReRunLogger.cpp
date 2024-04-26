@@ -2,10 +2,6 @@
 
 using namespace std::chrono_literals;
 
-ReRunLogger::ReRunLogger() {
-    m_rec.spawn().exit_on_failure();
-}
-
 void ReRunLogger::execute() {
     while (eCAL::Ok()) {
         update_topics();

@@ -1,8 +1,5 @@
 #pragma once
 
-// ReRun
-#include <rerun.hpp>
-
 // eCAL
 #include <ecal/ecal.h>
 #include <ecal/msg/protobuf/subscriber.h>
@@ -12,18 +9,11 @@
 
 #include "loggers/ImageLogger.hpp"
 
-constexpr char NODE_NAME[] = "ReRun eCAL Bridge";
-
 class ReRunLogger {
   public:
-    ReRunLogger();
-
     void execute();
 
   private:
-    // ReRun Stream
-    const rerun::RecordingStream m_rec{NODE_NAME};
-
     // eCAL Monitoring
     eCAL::Monitoring::SMonitoring m_monitoring;
 
