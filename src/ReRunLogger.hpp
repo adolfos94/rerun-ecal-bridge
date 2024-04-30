@@ -4,10 +4,9 @@
 #include <ecal/ecal.h>
 #include <ecal/msg/protobuf/subscriber.h>
 
-// Protobuf
-#include <Image.pb.h>
-
+// ReRun Loggers
 #include "loggers/ImageLogger.hpp"
+#include "loggers/Points3dLogger.hpp"
 
 class ReRunLogger {
   public:

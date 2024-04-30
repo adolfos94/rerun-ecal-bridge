@@ -44,5 +44,9 @@ void ReRunLogger::create_logger(const eCAL::Monitoring::STopicMon& topic) {
     const std::string message_type = topic.tdatatype.name;
     if (message_type == "pb.rerun.Image") {
         m_subscribers.insert({topic.tname, std::unique_ptr<ImageLogger>(new ImageLogger(topic))});
+    } else if (message_type == "pb.rerun.Points3D") {
+        m_subscribers.insert(
+            {topic.tname, std::unique_ptr<Points3dLogger>(new Points3dLogger(topic))}
+        );
     }
 }

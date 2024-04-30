@@ -17,21 +17,23 @@ class ISubscriberLogger {
         entity_path = topic.uname + "/" + topic.tname;
     }
 
-    std::shared_ptr<rerun::RecordingStream> logger() {
-        if (!m_rec_stream_ptr) {
-            m_rec_stream_ptr = std::make_shared<rerun::RecordingStream>(NODE_NAME);
-            m_rec_stream_ptr->spawn();
-        }
+    inline static rerun::RecordingStream& logger() {
+        static bool connect = true;
 
-        return m_rec_stream_ptr;
+        if (connect) {
+            connect = m_rec_stream.spawn() != rerun::Error::ok();
+        }
+        return m_rec_stream;
     }
 
     virtual void log(const eCAL::SReceiveCallbackData* data_) = 0;
 
   protected:
+    std::mutex mutex;
+
     std::string entity_path;
     eCAL::CSubscriber subscriber;
 
   private:
-    std::shared_ptr<rerun::RecordingStream> m_rec_stream_ptr;
+    inline static rerun::RecordingStream m_rec_stream = rerun::RecordingStream(NODE_NAME);
 };

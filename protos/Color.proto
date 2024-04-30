@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package pb.rerun;
+
+message Color
+{
+    // Red value between 0 and 1
+    float r = 1;
+
+    // Green value between 0 and 1
+    float g = 2;
+
+    // Blue value between 0 and 1
+    float b = 3;
+
+    // Alpha value between 0 and 1
+    float a = 4;
+}

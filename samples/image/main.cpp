@@ -7,10 +7,7 @@
 
 using namespace std::chrono_literals;
 
-constexpr char NODE_NAME[] = "ReRun eCAL Bridge-Sample";
-
 void publish_image() {
-
     static eCAL::protobuf::CPublisher<pb::rerun::Image> image_pub("ImagePub");
 
     // Create a synthetic image.
@@ -39,10 +36,9 @@ void publish_image() {
 }
 
 int main() {
-    eCAL::Initialize(0, nullptr, NODE_NAME);
+    eCAL::Initialize(0, nullptr, "ImageSample");
 
-    while (eCAL::Ok())
-    {
+    while (eCAL::Ok()) {
         publish_image();
         std::this_thread::sleep_for(0.1s);
     }

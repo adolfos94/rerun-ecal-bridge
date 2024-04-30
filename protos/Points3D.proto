@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "Point3.proto";
+import "Color.proto";
+
+package pb.rerun;
+
+message Points3D
+{
+    // Timestamp
+    google.protobuf.Timestamp timestamp = 1;
+
+    // 3D positions for the points.
+    repeated Point3 points = 2;
+
+    // Colors for the points.
+    repeated Color colors = 3;
+
+    // Optional radii for the points, effectively turning them into circles.
+    repeated float radius = 4;
+
+}

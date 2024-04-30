@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb.rerun;
+
+message Point3
+{
+    // x coordinate position
+    float x = 1;
+
+    // y coordinate position
+    float y = 2;
+
+    // z coordinate position
+    float z = 3;
+}

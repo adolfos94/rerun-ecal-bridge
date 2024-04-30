@@ -14,14 +14,16 @@ class ImageLogger : public ISubscriberLogger {
     }
 
     void log(const eCAL::SReceiveCallbackData* data_) override {
-        pb::rerun::Image image;
-        image.ParseFromArray(data_->buf, data_->size);
+        const std::lock_guard<std::mutex> lock(mutex);
 
-        logger()->log(
+        pb::rerun::Image imagePb;
+        imagePb.ParseFromArray(data_->buf, data_->size);
+
+        logger().log(
             entity_path,
             rerun::Image(
-                {image.height(), image.width(), image.channels()},
-                (uint8_t*)image.data().data()
+                {imagePb.height(), imagePb.width(), imagePb.channels()},
+                (uint8_t*)imagePb.data().data()
             )
         );
     }
