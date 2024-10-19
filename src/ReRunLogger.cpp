@@ -3,6 +3,9 @@
 using namespace std::chrono_literals;
 
 void ReRunLogger::execute() {
+    // Start ReRun logger
+    m_rec_stream->spawn();
+
     while (eCAL::Ok()) {
         update_topics();
     }
@@ -43,10 +46,12 @@ void ReRunLogger::update_topics() {
 void ReRunLogger::create_logger(const eCAL::Monitoring::STopicMon& topic) {
     const std::string message_type = topic.tdatatype.name;
     if (message_type == "pb.rerun.Image") {
-        m_subscribers.insert({topic.tname, std::unique_ptr<ImageLogger>(new ImageLogger(topic))});
+        m_subscribers.insert(
+            {topic.tname, std::unique_ptr<ImageLogger>(new ImageLogger(topic, m_rec_stream))}
+        );
     } else if (message_type == "pb.rerun.Points3D") {
         m_subscribers.insert(
-            {topic.tname, std::unique_ptr<Points3dLogger>(new Points3dLogger(topic))}
+            {topic.tname, std::unique_ptr<Points3dLogger>(new Points3dLogger(topic, m_rec_stream))}
         );
     }
 }
