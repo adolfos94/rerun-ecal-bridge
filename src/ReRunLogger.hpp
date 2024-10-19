@@ -22,6 +22,10 @@ class ReRunLogger {
     // eCAL Subscribers
     std::map<std::string, std::unique_ptr<ISubscriberLogger>> m_subscribers;
 
+    // ReRun Logger
+    std::shared_ptr<rerun::RecordingStream> m_rec_stream =
+        std::make_shared<rerun::RecordingStream>(NODE_NAME);
+
     void get_topics(std::map<std::string, eCAL::Monitoring::STopicMon>& topics);
 
     void update_topics();

@@ -6,7 +6,10 @@
 
 class Points3dLogger : public ISubscriberLogger {
   public:
-    Points3dLogger(const eCAL::Monitoring::STopicMon& topic) {
+    Points3dLogger(
+        const eCAL::Monitoring::STopicMon& topic, std::shared_ptr<rerun::RecordingStream> rec_stream
+    )
+        : ISubscriberLogger(rec_stream) {
         subscriber = eCAL::protobuf::CSubscriber<pb::rerun::Points3D>(topic.tname);
         subscriber.AddReceiveCallback(std::bind(&Points3dLogger::log, this, std::placeholders::_2));
 
@@ -41,7 +44,7 @@ class Points3dLogger : public ISubscriberLogger {
             radii[i] = points3dPb.radius(i);
         }
 
-        logger().log(entity_path, rerun::Points3D(points3d).with_colors(colors).with_radii(radii));
+        logger()->log(entity_path, rerun::Points3D(points3d).with_colors(colors).with_radii(radii));
     }
 
   private:

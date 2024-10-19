@@ -11,12 +11,14 @@ endif()
 
 # Rerun
 include(FetchContent)
-FetchContent_Declare(rerun_sdk URL https://github.com/rerun-io/rerun/releases/download/0.15.1/rerun_cpp_sdk.zip)
+FetchContent_Declare(rerun_sdk URL
+    https://github.com/rerun-io/rerun/releases/latest/download/rerun_cpp_sdk.zip)
 FetchContent_MakeAvailable(rerun_sdk)
 
 # eCAL
 find_package(eCAL REQUIRED)
 find_package(Protobuf REQUIRED)
+
 
 # Compile protobuf
 add_subdirectory(protos)

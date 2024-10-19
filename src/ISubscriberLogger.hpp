@@ -11,18 +11,16 @@ constexpr char NODE_NAME[] = "ReRun eCAL Bridge";
 
 class ISubscriberLogger {
   public:
+    ISubscriberLogger(std::shared_ptr<rerun::RecordingStream> rec_stream)
+        : m_rec_stream(rec_stream){};
+
     virtual ~ISubscriberLogger() = 0 {};
 
     void setup(const eCAL::Monitoring::STopicMon& topic) {
         entity_path = topic.uname + "/" + topic.tname;
     }
 
-    inline static rerun::RecordingStream& logger() {
-        static bool connect = true;
-
-        if (connect) {
-            connect = m_rec_stream.spawn() != rerun::Error::ok();
-        }
+    inline std::shared_ptr<rerun::RecordingStream> logger() {
         return m_rec_stream;
     }
 
@@ -34,6 +32,5 @@ class ISubscriberLogger {
     std::string entity_path;
     eCAL::CSubscriber subscriber;
 
-  private:
-    inline static rerun::RecordingStream m_rec_stream = rerun::RecordingStream(NODE_NAME);
+    std::shared_ptr<rerun::RecordingStream> m_rec_stream;
 };

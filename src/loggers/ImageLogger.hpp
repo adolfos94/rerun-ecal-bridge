@@ -6,7 +6,10 @@
 
 class ImageLogger : public ISubscriberLogger {
   public:
-    ImageLogger(const eCAL::Monitoring::STopicMon& topic) {
+    ImageLogger(
+        const eCAL::Monitoring::STopicMon& topic, std::shared_ptr<rerun::RecordingStream> rec_stream
+    )
+        : ISubscriberLogger(rec_stream) {
         subscriber = eCAL::protobuf::CSubscriber<pb::rerun::Image>(topic.tname);
         subscriber.AddReceiveCallback(std::bind(&ImageLogger::log, this, std::placeholders::_2));
 
@@ -18,14 +21,6 @@ class ImageLogger : public ISubscriberLogger {
 
         pb::rerun::Image imagePb;
         imagePb.ParseFromArray(data_->buf, data_->size);
-
-        logger().log(
-            entity_path,
-            rerun::Image(
-                {imagePb.height(), imagePb.width(), imagePb.channels()},
-                (uint8_t*)imagePb.data().data()
-            )
-        );
     }
 
   private:
